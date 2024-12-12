@@ -1,0 +1,125 @@
+#include<iostream>
+#include<stdexcept>
+using namespace std;
+//Creating Parent class - Publication
+class Publication{
+protected:
+string title;
+float price;
+public:
+Publication()
+{
+title = " ";
+price = 0;
+}
+void input(string title, float price)
+{
+if(price < 0)
+ throw 505;
+else
+{
+this->title = title;
+this->price = price;
+}
+}
+void display()
+{
+ //cout<<"Displaying Data ->"<<endl;
+cout<<"Title is : "<<title<<endl;
+cout<<"Price is : "<<price<<endl;
+}
+};
+//Derived Class 1(Book)
+class Book : public Publication
+{
+protected:
+ int pages;
+public:
+ void input(string title, float price, int pages)
+ {
+ Publication :: input(title,price);
+ if(pages < 0)
+ {
+ throw 505;
+ }
+ else
+ this->pages = pages;
+ }
+
+ void display1()
+ {
+ cout<<"Displaying Data ->"<<endl;
+ display();
+ cout<<"Number of pages are : "<<pages<<endl;
+ }
+};
+//Derived Class 2 (Tape)
+class Tape : public Publication
+{
+protected:
+float time1;
+public:
+void input(string title,float price, float time1)
+{
+Publication :: input(title,price);
+if(time1 < 0)
+ throw 505;
+else
+ this->time1 = time1;
+}
+void display1()
+{ cout<<"Displaying Data ->"<<endl;
+display();
+cout<<"Time of book is : "<<time1<<endl;
+}
+};
+int main()
+{
+ cout<<"<><><><><><><><><><><> PUBLICATIONS
+<><><><><><><><><><><><><><>"<<endl;
+
+ Book b1; //Creating objects
+ Tape t1;
+
+string title;
+int page,ch;
+float price,time1;
+try{ //Using exception handling
+cout << "Enter Title of the book : ";
+getline(cin,title);
+cout << "Enter price of the book : ";
+cin>>price;
+cout<< "Enter pages in the book : ";
+cin>>page;
+cout << "Enter time of the audio tape : ";
+cin>>time1;
+while(1)
+{
+ cout<<"--------------------------MENU--------------------------"<<endl;
+ cout<<"Press 1 - Show Books data"<<endl;
+ cout<<"Press 2 - Show Tape data"<<endl;
+ cout<<"Press 3 or any other to EXIT"<<endl;
+ cout<<"Enter your choice : ";
+ cin>>ch;
+
+ if(ch == 1)
+ {
+
+ b1.input(title,price,page);
+ b1.display1();
+ }
+
+ else if(ch == 2)
+ {
+ t1.input(title,price,time1);
+ t1.display1();
+ }
+ else
+ break;
+}
+}
+catch (...) {
+ cout << "Invalid data entered\n";
+ }
+return 0;
+}
