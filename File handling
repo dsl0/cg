@@ -47,3 +47,5 @@ f.read((char *)&s[i],sizeof(s[i]));
 s[i].display();
 }
 f.close();
+return0;
+}
