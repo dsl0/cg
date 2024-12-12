@@ -1,0 +1,93 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+struct Personnel {
+ string name;
+ int age;
+ string department;
+ string designation;
+};
+// Function to display personnel information
+void displayPersonnel(const vector<Personnel>& personnel) {
+ cout << "Personnel Information:\n";
+ for (const auto& person : personnel) {
+ cout << "Name: " << person.name << endl;
+ cout << "Age: " << person.age << endl;
+ cout << "Department: " << person.department << endl;
+ cout << "Designation: " << person.designation << endl;
+ cout << endl;
+ }
+}
+void addPersonnel(vector<Personnel>& personnel) {
+ Personnel newPerson;
+ cout << "Enter name: ";
+ cin >> newPerson.name;
+ cout << "Enter age: ";
+ cin >> newPerson.age;
+ cout << "Enter department: ";
+ cin >> newPerson.department;
+ cout << "Enter designation: ";
+ cin >> newPerson.designation;
+ personnel.push_back(newPerson);
+}
+// Function to sort personnel information by name
+void sortByName(vector<Personnel>& personnel) {
+ sort(personnel.begin(), personnel.end(), [](const Personnel& a, const Personnel& b) {
+ return a.name < b.name;
+ });
+}
+// Function to search personnel information by name
+void searchByName(const vector<Personnel>& personnel) {
+ string name;
+ cout << "Enter name to search: ";
+ cin >> name;
+ auto it = find_if(personnel.begin(), personnel.end(), [&](const Personnel& person) {
+ return person.name == name;
+ });
+ if (it != personnel.end()) {
+ cout << "Personnel found:\n";
+ cout << "Name: " << it->name << endl;
+ cout << "Age: " << it->age << endl;
+ cout << "Department: " << it->department << endl;
+ cout << "Designation: " << it->designation << endl;
+ } else {
+ cout << "Personnel not found.\n";
+ }
+}
+int main() {
+ vector<Personnel> personnel;
+ int choice;
+ do {
+ cout << "Personnel Information System\n";
+ cout << "1. Add Personnel\n";
+ cout << "2. Display Personnel\n";
+ cout << "3. Sort by Name\n";
+ cout << "4. Search by Name\n";
+ cout << "5. Exit\n";
+ cout << "Enter your choice: ";
+ cin >> choice;
+ switch (choice) {
+ case 1:
+ addPersonnel(personnel);
+ break;
+ case 2:
+ displayPersonnel(personnel);
+ break;
+ case 3:
+ sortByName(personnel);
+ cout << "Personnel sorted by name.\n";
+ break;
+ case 4:
+ searchByName(personnel);
+ break;
+ case 5:
+ cout << "Exiting...\n";
+ break;
+ default:
+ cout << "Invalid choice. Please try again.\n";
+ }
+ } while (choice != 5);
+ return 0;
+}
