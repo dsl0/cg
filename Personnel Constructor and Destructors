@@ -1,0 +1,102 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class Student{
+int admno;
+string name,dob,bgrp;
+public:
+int* rollno = new int; //Using new kewyword
+static int c;
+Student() //Default constructor
+{
+c++;
+admno = 0;
+*rollno = 0;
+name = "abc";
+dob = "0";
+bgrp = "A";
+}
+Student(int admno, string name, string dob, string bgrp) //Parameterized constructor
+{
+this->admno = admno; //using this pointer
+this->name = name;
+this->dob = dob;
+this->bgrp = bgrp;
+}
+Student(Student &s) //Copy constructor
+{
+admno = s.admno;
+name = s.name;
+dob = s.dob;
+bgrp = s.bgrp;
+}
+~Student() //Destructor
+{
+delete rollno; //Using delete keyword
+}
+void input(); //declaring inline function
+void display();
+friend class Library;
+friend void Display(Student &s);
+};
+int Student :: c = 0;
+//Defining inline functions
+inline void Student :: input()
+{
+cout <<"Enter name : ";
+cin>>name;
+cout<<"Enter Admno : ";
+cin>>admno;
+cout<<"Enter Roll No. : ";
+cin>>*rollno;
+cout<<"Enter date of birth(dd-mm-yyyy) : ";
+cin>>dob;
+cout<<"Enter blood group : ";
+cin>>bgrp;
+cout<<"---------------------------------"<<endl;
+}
+inline void Student :: display()
+{
+cout << "Admno is : "<<admno<<endl;
+cout << "Name is : "<<name<<endl;
+cout << "Roll No. is : "<<*rollno<<endl;
+cout << "Date of birth is : "<<dob<<endl;
+cout << "Blood group is : "<<bgrp<<endl;
+cout<<"---------------------------------"<<endl;
+}
+//Creating friend function of class Student
+void Display(Student &s)
+{
+ cout<<"Admno : "<<s.admno<<endl;
+ cout<<"Name : "<<s.name<<endl;
+ cout<<"---------------------------------"<<endl;
+}
+//Creating friend class of class Student
+class Library
+{
+int card_no;
+public:
+void display_details(Student& s)
+{
+ cout<<"Enter card number : ";
+ cin>>card_no;
+ cout<<"---------------------------------"<<endl;
+ cout<<"Displaying Data ->"<<endl;
+cout<<"Admno of the student : "<<s.admno<<endl;
+cout<<"Card no. of stuent : "<<card_no<<endl;
+cout<<"Name of the student : "<<s.name<<endl;
+}
+};
+int main()
+{
+Student s1,s2(1022,"Ritika","20-12-2005","A+"),s3(s1); //Creating objects
+Library l1;
+cout << "-------------------------------"<<endl;
+s1.input();
+s1.display();
+
+ s2.display();
+ s3.display();
+ Display(s1);
+l1.display_details(s1);
+}
