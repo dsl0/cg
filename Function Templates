@@ -1,0 +1,88 @@
+#include<iostream>
+using namespace std;
+template<class T>
+void selection_sort(T arr[],int size)
+{
+for(int i=0;i<size;i++)
+{
+int min = i;
+for(int j=i+1;j<size;j++)
+{
+if(arr[j] < arr[min])
+{
+min = j;
+}
+}
+T temp = arr[i];
+arr[i] = arr[min];
+arr[min] = temp;
+}
+cout << "Sorted Array is : " << endl;
+for(int i=0;i<size;i++)
+{
+cout << arr[i] << " ";
+}
+cout << endl;
+}
+template<class U>
+void input()
+{
+int n;
+cout << "Enter how many elements are there : ";
+cin>>n;
+U arr[n];
+cout << "Enter Array elements : "<<endl;
+for(int i=0;i<n;i++)
+cin>>arr[i];
+selection_sort<U>(arr,n);
+}
+template<class B>
+void bubble_sort(B arr[], int size) {
+ for (int i = 0; i < size - 1; i++) {
+ for (int j = 0; j < size - i - 1; j++) {
+ if (arr[j] > arr[j + 1]) {
+ B temp = arr[j];
+ arr[j] = arr[j + 1];
+ arr[j + 1] = temp;
+ }
+ }
+ }
+ cout << "Sorted Array is : " << endl;
+ for (int i = 0; i < size; i++) {
+ cout << arr[i] << " ";
+ }
+ cout << endl;
+}
+int main()
+{
+int n,ch,flag = 1;
+int arr1[30];
+float arr2[30];
+char arr3[30];
+while(flag)
+{
+cout << "----------------MENU-----------------"<<endl;
+cout << "Enter 1 - Sort Integer array" << endl;
+cout << "Enter 2 - Sort Float array" << endl;
+cout << "Enter 3 - Sort Character array"<< endl;
+cout << "Enter any other number to EXIT"<<endl;
+cout << "Enter your choice : ";
+cin>>ch;
+switch(ch)
+{
+case 1 :
+input<int>();
+break;
+case 2:
+input<float>();
+break;
+case 3:
+input<char>();
+break;
+default:
+flag = 0;
+break;
+}
+}
+return 0;
+}
